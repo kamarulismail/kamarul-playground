@@ -1,16 +1,21 @@
 Options +FollowSymLinks
 IndexIgnore *
-RewriteEngine On
-#RewriteBase /
 
-#if a directory or a file exists, use it directly
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
+<ifModule rewrite_module>
+  ## Tell PHP that the mod_rewrite module is ENABLED.
+  SetEnv HTTP_MOD_REWRITE On
+  
+  RewriteEngine On
+  #RewriteBase /
+  
+  ## if a directory or a file exists, use it directly
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  #RewriteCond %{REQUEST_URI} !^(/index.php|/assets|/images|/css|/w3c|/robots.txt|/favicon.ico)
 
-#RewriteCond %{REQUEST_URI} !^(/index.php|/assets|/images|/css|/w3c|/robots.txt|/favicon.ico)
-
-#otherwise forward it to index.php
-RewriteRule . index.php
+  ## otherwise forward it to index.php
+  RewriteRule . index.php
+</ifModule>
 
 <ifModule expires_module>
   #2592000 seconds = 1 days | 604800 seconds = 1 weeks
