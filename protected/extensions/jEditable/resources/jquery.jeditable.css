@@ -1,0 +1,56 @@
+.jEditableForm{ }
+
+.jEditableButtonCancel,
+.jEditableButtonSubmit {  
+	color:#fff;
+	border:none;
+	font-size:11px;	
+  padding: 2px 4px 2px 4px;
+  margin: 0 1px 0 1px;
+	cursor:pointer;  
+  font-weight: normal;      
+  background-color: #2E2726;
+  
+  border-radius: 3px;	
+  -moz-border-radius: 3px; 
+  -webkit-border-radius: 3px;	
+  -khtml-border-radius : 3px;  
+}
+
+form > /**/ .jEditableButtonCancel,
+form > /**/ .jEditableButtonSubmit { 
+  padding: 3px 6px 3px 6px; 
+}
+
+.jEditableInputText{      
+	border:1px solid #e2e2e2;
+	padding:2px;
+	background-color: #ffffff;
+  
+  border-radius: 3px;   
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px; 
+  -khtml-border-radius: 3px;
+}
+
+.jEditableTextArea{
+  border:1px solid #e2e2e2;
+	padding:2px;
+	background-color: #ffffff;
+  
+  border-radius: 3px;   
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px; 
+  -khtml-border-radius: 3px;
+}
+
+.jEditableSelect{
+  border:1px solid #e2e2e2;
+	padding:2px;
+	background-color: #ffffff;
+  
+  border-radius: 3px;   
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px; 
+  -khtml-border-radius: 3px;
+}
