@@ -1,20 +1,32 @@
 <?php
-
+/*
+ * main.php
+ * 'component' => array(
+ *    'widgetFactory' => array(
+ *      'widgets' => array(
+ *          'FlexPaper' => array(
+ *              'licenseKey' => 'licenseKey',
+ *          ),
+ *      ),
+ *    ), 
+ * ) 
+ */
+ 
 class FlexPaper extends CWidget
 {
   public $viewerHeight;
   public $viewerWidth;
   public $viewerContainer;  
   public $sourceFile;
-  public $options;  
+  public $options;
+  public $licenseKey;
     
   private $_baseUrl;
   
   public function init()
   {        
     // GET RESOURCE PATH
-    $extensionPath = Yii::getPathOfAlias('ext.flexPaper');
-    $resources     = $extensionPath.'/resources';
+    $resources = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'resources';
     
     // PUBLISH FILES
     $this->_baseUrl = Yii::app()->assetManager->publish($resources, false, -1, YII_DEBUG);
@@ -32,16 +44,15 @@ class FlexPaper extends CWidget
     $cs = Yii::app()->clientScript;
     $cs->registerCoreScript('jquery');
         
-    $serverName = $_SERVER['SERVER_NAME'];
-    if(preg_match("/(yakimbi.com)$/im", $serverName))
+    if(empty($this->licenseKey))
     {      
-      // LICENSE VERSION - DOMAIN(yakimbi.com)
-      $cs->registerScriptFile($this->_baseUrl.'/flexpaper_flash.js');    
+      // FREE VERSION
+      $cs->registerScriptFile($this->_baseUrl.'/flexpaper_flash_free.js');    
     }
     else
     {
-      // FREE VERSION - ANY DOMAIN
-      $cs->registerScriptFile($this->_baseUrl.'/flexpaper_flash_free.js');
+      // LICENSE VERSION
+      $cs->registerScriptFile($this->_baseUrl.'/flexpaper_flash.js');
     }
     
     // VIEWER SCRIPT OPTIONS
@@ -71,10 +82,10 @@ class FlexPaper extends CWidget
             $this->options
         );
     
-    // FLEXPAPER LICENSE - DOMAIN (yakimbi.com)
-    if(preg_match("/(yakimbi.com)$/im", $serverName))
+    // FLEXPAPER LICENSE
+    if(!empty($this->licenseKey))
     {            
-      $options['key'] = '$bc56dc79aa2da4ec9df';    
+      $options['key'] = "{$this->licenseKey}";
     }    
     
     $viewerHeight = $this->viewerHeight;
@@ -102,8 +113,9 @@ class FlexPaper extends CWidget
     
     // FLEXPAPER VIEWER
     $viewerPath = $this->_baseUrl.'/FlexPaperViewerFree'; 
-    // LICENSE VERSION - DOMAIN (yakimbi.com)
-    if(preg_match("/(yakimbi.com)$/im", $serverName)) 
+    
+    // LICENSE VERSION
+    if(!empty($this->licenseKey)) 
     {      
       $viewerPath = $this->_baseUrl.'/FlexPaperViewerNoPrint'; 
       //Enable Printing
